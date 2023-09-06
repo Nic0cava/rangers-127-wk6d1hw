@@ -1,0 +1,13 @@
+/* CSS for our Shop page */
+
+
+.shop-header {
+    background-image: url('https://wallpapers.com/images/hd/cool-car-chevrolet-corvette-cipxrabgpci91ils.jpg');
+    background-size: cover;
+    height: 700px;
+    color: white; 
+}
+
+.shop-stats {
+    color: white; 
+}
