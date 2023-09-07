@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect
 
-from car_inventory.models import Product, db, product_schema, products_schema 
+#internal imports
+from car_inventory.models import Product, Customer, ProdOrder, Order, db, product_schema, products_schema 
 from car_inventory.forms import ProductForm
+
 
 
 #we need to instantiate our Blueprint object
@@ -13,9 +15,24 @@ site = Blueprint('site', __name__, template_folder='site_templates') #telling yo
 @site.route('/')
 def shop():
 
-    shop = Product.query.all()
+    #data = request.json() #if they passed the user_id through the body 
 
-    return render_template('shop.html', shop=shop) #basically displaying our shop.html page 
+    #that user_id would be need to be passed to this endpoint/function
+    #when were inside flask we can use current_user.user_id 
+
+    shop = Product.query.all() #grabbing all the product
+    #shop = Product.query.filter(Product.user_id = user_id).all() #to grab products on that specific user
+    customers = Customer.query.all()
+    orders = Order.query.all()
+
+    shop_stats = {
+        'products': len(shop),
+        'sales': sum([order.order_total for order in orders]), #order totals was total cost of that specific order
+        'customers' : len(customers)
+    }
+
+    return render_template('shop.html', shop=shop, stats=shop_stats) #basically displaying our shop.html page 
+
 
 
 #create our CREATE route
@@ -26,29 +43,29 @@ def create():
 
     if request.method == 'POST' and createform.validate_on_submit():
 
-        try: 
-            name = createform.name.data
-            desc = createform.description.data
-            image = createform.image.data
-            price = createform.price.data
-            quantity = createform.quantity.data 
+        # try: 
+        name = createform.name.data
+        desc = createform.description.data
+        image = createform.image.data
+        price = createform.price.data
+        quantity = createform.quantity.data 
 
-            shop = Product(name, price, quantity, image, desc) #instantiating Product object
+        shop = Product(name, price, quantity, image, desc) #instantiating Product object
 
-            db.session.add(shop)
-            db.session.commit()
+        db.session.add(shop)
+        db.session.commit()
 
-            flash(f"You have successfully created product {name}", category='success')
-            return redirect('/')
+        flash(f"You have successfully created product {name}", category='success')
+        return redirect('/')
 
-        except:
-            flash("We were unable to process your request. Please try again", category='warning')
-            return redirect('/shop/create')
+        # except:
+        #     flash("We were unable to process your request. Please try again", category='warning')
+        #     return redirect('/shop/create')
         
     return render_template('create.html', form=createform)
 
 
-#create our Update route
+#create our CREATE route
 @site.route('/shop/update/<id>', methods = ['GET', 'POST'])
 def update(id):
 
@@ -66,7 +83,7 @@ def update(id):
 
             
 
-            db.session.commit()
+            db.session.commit() #commits the changes to our objects 
 
             flash(f"You have successfully updated product {product.name}", category='success')
             return redirect('/')

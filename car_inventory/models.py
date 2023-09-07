@@ -139,8 +139,8 @@ class ProdOrder(db.Model):
 
     def set_price(self, price, quantity):
 
-        quantity = int(quantity)
-        price = int(price)
+        quantity = float(quantity)
+        price = float(price)
 
         self.price = quantity * price
         return self.price 
