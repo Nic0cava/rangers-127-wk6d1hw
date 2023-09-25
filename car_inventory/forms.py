@@ -27,7 +27,9 @@ class RegisterForm(FlaskForm):
 class ProductForm(FlaskForm):
     name = StringField("Product Name", validators=[ DataRequired()])
     image = StringField("Img Url **Optional")
-    description = StringField("Description **Optional")
+    make = StringField("make", validators=[ DataRequired()])
+    modle = StringField("modle", validators=[ DataRequired()])
+    year = IntegerField("year", validators=[ DataRequired()])
     price = DecimalField("Price", validators=[DataRequired()])
     quantity = IntegerField("Quantity", validators=[DataRequired()])
     submit = SubmitField()

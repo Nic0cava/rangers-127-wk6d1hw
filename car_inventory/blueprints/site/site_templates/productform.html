@@ -12,8 +12,27 @@
         {{form.image(class='form-control mt-2')}}
     </div>
     <div class="col-12">
-        {{ form.description.label }}
-        {{ form.description(class='form-control mt-2')}}
+        {{ form.make.label }}
+        {{ form.make(class='form-control mt-2')}}
+        {% for error in form.make.errors %}
+            <span class="err-msg">{{ error }}</span>
+        {% endfor %}
+        
+    </div>
+    <div class="col-12">
+        {{ form.modle.label }}
+        {{ form.modle(class='form-control mt-2')}}
+        {% for error in form.modle.errors %}
+            <span class="err-msg">{{ error }}</span>
+        {% endfor %}
+        
+    </div>
+    <div class="col-12">
+        {{ form.year.label }}
+        {{ form.year(class='form-control mt-2')}}
+        {% for error in form.year.errors %}
+            <span class="err-msg">{{ error }}</span>
+        {% endfor %}
         
     </div>
     <div class="col-12">

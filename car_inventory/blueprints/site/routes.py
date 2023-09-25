@@ -45,12 +45,14 @@ def create():
 
         # try: 
         name = createform.name.data
-        desc = createform.description.data
+        make = createform.make.data
+        modle = createform.modle.data
+        year = createform.year.data
         image = createform.image.data
         price = createform.price.data
         quantity = createform.quantity.data 
 
-        shop = Product(name, price, quantity, image, desc) #instantiating Product object
+        shop = Product(name, price, quantity, image, make, modle, year) #instantiating Product object
 
         db.session.add(shop)
         db.session.commit()
@@ -76,7 +78,9 @@ def update(id):
 
         try: 
             product.name = updateform.name.data
-            product.description = updateform.description.data
+            product.make = updateform.make.data
+            product.modle = updateform.modle.data
+            product.year = updateform.year.data
             product.set_image(updateform.image.data, updateform.name.data) #calling upon that set_image method to set our image!
             product.price = updateform.price.data
             product.quantity = updateform.quantity.data 

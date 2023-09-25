@@ -19,26 +19,29 @@
 </div>
 {% if current_user.is_authenticated %}
 <div class="row bg-dark p-3 shop-stats">
-    <!-- Eventually we will query our database to populate these stats  -->
+    <!-- We will query our database to populate these stats  -->
     <div class="col d-flex justify-content-center">Total # of Customers: {{ stats.customers }}</div> 
     <div class="col d-flex justify-content-center">Total Sales : $ {{ stats.sales }}</div>
     <div class="col d-flex justify-content-center">Total Products: {{ stats.products }}</div>
 </div>
-<!-- Eventually our Products will show up down here! -->
+<!-- Our Products will show up down here! -->
 {% for product in shop %}
     <div class="row mt-5 mb-5 justify-content-center">
-        <div class="card d-flex rounded shadow flex-row w-50 p-3">
+        <div class="card d-flex rounded shadow flex-row w-50 p-2 shop-item">
+            <div class="shop-inner d-flex flex-row ">
             <div class="d-flex align-items-center" style="max-width:230px">
-                <img src="{{ product.image }}" class="img-fluid rounded" alt="cute plant image">
+                <img src="{{ product.image }}" class="img-fluid rounded shop-image" alt="cute plant image">
             </div>
             <div class="card-body d-flex flex-column justify-content-center p-4">
                 <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text">{{ product.make }}</p>
+                <p class="card-text">{{ product.modle }}</p>
+                <p class="card-text">{{ product.year }}</p>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Price: {{ product.price }}</li>
-                    <li class="list-group-item">Quantity: {{ product.quantity }}</li>
-                    {% if product.quantity <= 10 %}
-                        <span class='err-msg btn-danger p-2 opacity-50 rounded'> ALERT: Quantity is Low</span>
+                    <li class="list-group-item shop-list">Price: {{ product.price }}</li>
+                    <li class="list-group-item shop-list">Quantity: {{ product.quantity }}</li>
+                    {% if product.quantity == 1 %}
+                        <span class='err-msg btn-danger p-2 opacity-50 rounded'> ALERT: Only one left</span>
                     {% endif %}
                 </ul>
                 <div class="mt-2">
@@ -47,8 +50,11 @@
                 </div>
             </div>
         </div>
+        </div>
+    </div>
     </div>
  {% endfor %}
+
 
 
 

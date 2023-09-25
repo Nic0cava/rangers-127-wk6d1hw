@@ -61,21 +61,25 @@ class User(db.Model, UserMixin):
 class Product(db.Model):
     prod_id = db.Column(db.String, primary_key = True)
     name = db.Column(db.String(100), nullable = False)
-    image = db.Column(db.String, nullable = False)
-    description = db.Column(db.String(200))
+    image = db.Column(db.String(200), nullable = False)
+    make = db.Column(db.String(100), nullable = False)
+    modle = db.Column(db.String(100), nullable = False)
+    year = db.Column(db.Integer, nullable = False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable = False)
     quantity = db.Column(db.Integer, nullable = False)
     date_added = db.Column(db.DateTime, default = datetime.utcnow)
     #user_id = db.Column(db.String, db.ForeignKey('user.user_id'), nullable = False) #if we wanted to make a foreign key relationship
 
 
-    def __init__(self, name, price, quantity, image = "", description = ""):
+    def __init__(self, name, price, quantity, image = "", make= "", modle = "", year=""):
         self.prod_id = self.set_id()
         self.name = name
         self.price = price
         self.quantity = quantity
         self.image = self.set_image(image, name)
-        self.description = description
+        self.make = make
+        self.modle = modle
+        self.year = year
 
     def set_id(self):
         return str(uuid.uuid4()) #create unique ID 
@@ -199,7 +203,7 @@ class Order(db.Model):
 
 class ProductSchema(ma.Schema):
     class Meta: 
-        fields = ['prod_id', 'name', 'image', 'description', 'price', 'quantity'] 
+        fields = ['prod_id', 'name', 'image', 'make', 'modle', 'year', 'price', 'quantity'] 
 
 
 

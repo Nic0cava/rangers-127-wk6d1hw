@@ -11,3 +11,27 @@
 .shop-stats {
     color: white; 
 }
+
+.shop-item{
+    background-color: rgb(192, 173, 243);
+}
+
+.shop-item:hover {
+    border: 2px solid;
+    border-color: #ff00e0;
+    box-shadow: 0 0 35px #ff00e0;
+}
+
+.shop-list{
+    background-color: rgb(192, 173, 243);
+}
+
+.shop-image {
+    border: 2px solid;
+    border-color: #ff00e0;
+    box-shadow: 0 0 10px #ff00e0;
+}
+
+.shop-inner:hover{
+    box-shadow: 0 0 35px #ff00e0;
+}
